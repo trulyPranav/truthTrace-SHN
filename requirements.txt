@@ -1,7 +1,8 @@
 langchain
 beautifulsoup4
 requests
-dotenv
-langchain-groq
 flask
 gunicorn
+langchain-groq
+python-dotenv
+langchain-google-community
