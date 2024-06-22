@@ -71,7 +71,9 @@ def scrap_body(url):
         if siteResponse.status_code == 200:
             siteHtml = BeautifulSoup(siteResponse.content, 'html.parser')
             if siteHtml.body is not None:
-                return siteHtml.body.text
+                bodytxt = siteHtml.body.text
+                words = bodytxt.split()
+                return ''.join(words[:6000])
 
 # Initialize Flask application
 app = Flask(__name__)
@@ -99,7 +101,7 @@ def final_result(text):
     sources = link_generation(text)
     final_result=summarizer(result)
     return {
-        'output': final_resultresult.content,
+        'output': final_result.content,
         'source': sources
     }
     

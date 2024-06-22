@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 class Chat extends StatefulWidget {
   const Chat({Key? key}) : super(key: key);
@@ -9,15 +12,58 @@ class Chat extends StatefulWidget {
 
 class _ChatState extends State<Chat> {
   final TextEditingController _textController = TextEditingController();
-  final List<String> _messages = []; // List to store chat messages
+  final List<Map<String, dynamic>> _messages = []; // List to store chat messages and their types
   bool _showInputField = true;
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   void _handleSubmitted(String text) {
     _textController.clear();
     setState(() {
-      _messages.insert(0, text); // Insert new message at the beginning of the list
+      _messages.insert(0, {"message": text, "type": "Me"}); // Insert user message
       _showInputField = false; // Hide input field after message submission
     });
+
+    _sendMessageToServer(text);
+  }
+
+  void _sendMessageToServer(String text) async {
+    try {
+      final response = await http.post(
+        Uri.parse('https://truthtracebackend.onrender.com/'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(<String, String>{"user_input": text}),
+      );
+
+      if (response.statusCode == 200) {
+        final responseData = jsonDecode(response.body);
+
+        // Extract accuracy percentage
+        String output = responseData['output'];
+        RegExp regex = RegExp(r'(\d+)%');
+        Iterable<Match> matches = regex.allMatches(output);
+        String accuracyPercentage = matches.isNotEmpty ? matches.first.group(1) ?? '0' : '0';
+
+        // Format sources list
+        List<String> sources = List.from(responseData['source']);
+        String sourcesFormatted = sources.map((source) => '- $source').join('\n');
+
+        setState(() {
+          _messages.insert(0, {"message": 'The information you\'ve provided seems to be $accuracyPercentage% accurate', "type": "truthTrace"});
+          _messages.insert(0, {"message": 'Sources:\n$sourcesFormatted', "type": "truthTrace"});
+        });
+      } else {
+        throw Exception('Failed to load response');
+      }
+    } catch (e) {
+      print('Error sending message: $e');
+      // Handle error here
+    }
   }
 
   void _handleCheckAnotherFact() {
@@ -58,9 +104,21 @@ class _ChatState extends State<Chat> {
     );
   }
 
-  Widget _buildMessage(String text) {
+  Widget _buildMessage(Map<String, dynamic> messageData) {
+    String type = messageData['type'];
+    String message = messageData['message'];
+
     return ListTile(
-      title: Text(text),
+      title: Text(
+        message,
+        style: TextStyle(
+          fontWeight: type == 'Me' ? FontWeight.bold : FontWeight.normal,
+        ),
+      ),
+      subtitle: type == 'truthTrace' ? Text('truthTrace') : null,
+      trailing: type == 'truthTrace' ? Icon(Icons.computer) : null,
+      leading: type == 'Me' ? Icon(Icons.person) : null,
+      dense: true,
     );
   }
 
