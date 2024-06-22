@@ -24,4 +24,4 @@ if h2_tag:
     else:
         print("No side effects list found.")
 else:
-    print("Header 'Fentanyl side effects' not found.")
+    print("Header 'side effects' not found.")
