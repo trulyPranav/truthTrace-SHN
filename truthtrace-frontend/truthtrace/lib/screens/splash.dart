@@ -23,13 +23,16 @@ class _SplashState extends State<Splash> {
               fontSize: 32),
               textAlign: TextAlign.center,
             ),
+            const SizedBox(
+              height: 50,
+            ),
             ElevatedButton(
               onPressed: () {
                 Navigator.push(
-                  context, PageTransition(child: Chat(), type: PageTransitionType.fade),
+                  context, PageTransition(child: Chat(), type: PageTransitionType.bottomToTop),
                 );
               },
-              child: Text('Hehe'),
+              child: const Text('Hehe'),
             )
           ],
         ),
