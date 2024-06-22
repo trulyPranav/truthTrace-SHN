@@ -22,8 +22,14 @@ prompt_template = PromptTemplate.from_template(
     "this is a user's text:{user_input}\nthis is data from websites related to user's text:{headlines}\n.Compare the user's text with data from the provided websites and give an approximate percentage of how accurate the data is matching with user's text and at the end only show the percentage accuracy"
 )
 
+summary_template = prompt_template.from_template(
+    "this is the output from the previous prompt {content}.summarize the content more short and effective way without loosing essentil parts and give the output as a summary and percent from the reply"
+)
+
+chain = prompt_template | llm
+summary_chain = summary_template | llm
+
 def compare_with_llm(user_input, content):
-    chain = prompt_template | llm
     result = chain.invoke({"user_input": user_input, "headlines": content})
     return result
 
@@ -55,6 +61,9 @@ def link_generation(user_input):
     links = extract_links(results)
     return links
 
+def summarizer(final_output):
+    return summary_chain.invoke({"content":final_output})
+
 def scrap_body(url):
     if url is not None:
         session = requests.session()
@@ -62,7 +71,9 @@ def scrap_body(url):
         if siteResponse.status_code == 200:
             siteHtml = BeautifulSoup(siteResponse.content, 'html.parser')
             if siteHtml.body is not None:
-                return siteHtml.body.text
+                bodytxt = siteHtml.body.text
+                words = bodytxt.split()
+                return ''.join(words[:6000])
 
 # Initialize Flask application
 app = Flask(__name__)
@@ -88,10 +99,12 @@ def final_result(text):
     content = body_text(text)
     result = compare_with_llm(text, content)
     sources = link_generation(text)
+    final_result=summarizer(result)
     return {
-        'output': result.content,
+        'output': final_result.content,
         'source': sources
     }
+    
 
 if __name__ == '__main__':
     app.run(debug=True)
