@@ -6,3 +6,4 @@ gunicorn
 langchain-groq
 python-dotenv
 langchain-google-community
+flask-cors
