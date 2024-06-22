@@ -1,43 +1,47 @@
 from dotenv import load_dotenv
-from langchain_google_genai import GoogleGenerativeAI
+from langchain_groq import ChatGroq
 from langchain_core.prompts import PromptTemplate
-from langchain_core.tools import Tool
-from langchain_google_community import GoogleSearchAPIWrapper
+from scrap import scrap_body
+from langchain_utils import link_generation
+from scrap import scrap_body
 import os
 
 dotenv_path='.env'
 load_dotenv(dotenv_path)
 
-llm = GoogleGenerativeAI(model='gemini-1.5-flash',google_api_key=os.getenv('GOOGLE_API_KEY'))
-prompt_template=PromptTemplate.from_template("compare the {user_prompt} with the following {headlines} also return how correct the person compared to the given content in percentage")
-
-
-def compare_with_llm(content):
-    chain = prompt_template | llm
-    result = chain.invoke({"user_prompt":"does fentanyl cause headache","headlines":content})
-    return result
-end_result = compare_with_llm(content)
-print(end_result)
-
-search = GoogleSearchAPIWrapper()
-
-def top_10_result(text):
-    return search.results(text,5)
-
-tool = Tool(
-    name="google_search",
-    description="Search Google for recent results.",
-    func=top_10_result,
+llm = chat = ChatGroq(
+    temperature=0,
+    model="llama3-70b-8192",
 )
 
-def extract_links(results):
-    links = []
-    for item in results:
-        links.append(item['link'])
-    return links
-    for link in links:
-        print(link)
+prompt_template=PromptTemplate.from_template("this is a user's text:{user_input}\nthis is data from websites related to user's text:{headlines}\n.Compare the user's text with data from the provided websites and give an approximate percentage of how accurate the data is matching with user's text and at the end only show the percentage accuracy")
 
-results=top_10_result("orangutan")
-print(extract_links(results))
+
+def compare_with_llm(user_input,content):
+    chain = prompt_template | llm
+    result = chain.invoke({"user_input":user_input,"headlines":content})
+    return result
+
+def body_text(text):
+    links = link_generation(text)
+    body = ''
+    if links is not None:
+        # for link in links:
+        #     body = scrap_body(link)
+        print("hi")
+    else: 
+        print("hello")
+    return body
+
+def final_result(text):
+    content = body_text(text)
+    result = compare_with_llm(text,content)
+    return content
+
+def testing():
+    prompt="Does fentanyl cause headache"
+    content=scrap_body('https://www.drugs.com/')
+    result=compare_with_llm(prompt,content)
+    return result
+print(testing())
 
