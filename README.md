@@ -43,6 +43,7 @@ Will be uploaded by 24/6/24
 
 #### Running the backend:
 - Run ```python main.py``` in the console, to activate the flask localhost.
+- The backend is deployed [here](https://truthtracebackend.onrender.com/), and this can also be used to access the api.
 - Check the api, by accessing the '/' endpoint, using Postman or any other suitable api testing tools.
 <pre>api requests must of the following json format:
 {
