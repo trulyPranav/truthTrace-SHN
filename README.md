@@ -23,8 +23,9 @@ The project works in the following way:
 - Then a prompt template is used (a query) to compare the user's input and the scraped data, and is **summarized**.
 - The summarized data and the 10 sourced links is then returned to the app/api calls as the result of the user's input.
 - The accuracy of the fact the user mentioned is checked with the data fed by scraping, and a suitable accuracy percentage/percentage range is provided along with its summary and source links. 
-**
-2. Embed video of project demo:**
+
+<br>
+**2. Embed video of project demo:**
 Will be uploaded by 24/6/24
 ## Libraries used
 - Langchain
