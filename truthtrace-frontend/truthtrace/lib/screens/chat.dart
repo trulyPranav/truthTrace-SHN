@@ -128,21 +128,21 @@ class _ChatState extends State<Chat> {
       return ListTile(
         title: Text(
           message,
-          style: TextStyle(
+          style: const TextStyle(
             fontWeight: FontWeight.bold,
           ),
         ),
-        leading: Icon(Icons.person),
+        leading: const Icon(Icons.person),
         dense: true,
       );
     } else if (type == 'truthTrace') {
       return ListTile(
         title: Text(message),
-        trailing: Icon(Icons.computer),
+        trailing: const Icon(Icons.computer),
         dense: true,
       );
     } else {
-      return SizedBox.shrink(); // Return empty widget if type is unknown
+      return const SizedBox.shrink(); // Return empty widget if type is unknown
     }
   }
 
