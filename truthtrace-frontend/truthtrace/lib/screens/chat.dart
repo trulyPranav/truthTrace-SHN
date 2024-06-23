@@ -63,14 +63,11 @@ class _ChatState extends State<Chat> {
           } else {
             _messages.insert(0, {"message": 'The information you\'ve provided seems to be $accuracyPercentage% accurate', "type": "truthTrace"});
           }
-  
-          // Insert sources message
-          _messages.insert(0, {"message": 'Sources:\n$sourcesFormatted', "type": "truthTrace"});
-  
-          // Insert summary messages from the server response in reversed order
           for (String message in messages) {
             _messages.insert(0, {"message": message.trim(), "type": "truthTrace"});
-          }
+          }  
+          // Insert sources message
+          _messages.insert(0, {"message": 'Sources:\n$sourcesFormatted', "type": "truthTrace"});
         });
       } else {
         throw Exception('Failed to load response');
@@ -84,7 +81,7 @@ class _ChatState extends State<Chat> {
 
   void _handleCheckAnotherFact() {
     setState(() {
-      _showInputField = true; // Show input field when "Check Another Fact" is pressed
+      _showInputField = true;
     });
   }
 
