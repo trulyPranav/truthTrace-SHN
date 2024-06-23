@@ -55,4 +55,4 @@ Will be uploaded by 24/6/24
 #### Running the app:
 Do either of the following:
 - Run the flutter frondend in the created virtual device. If the server connects, you'll be redirected to the chat screen, where you can type prompts and use the bot to check facts.
-- Or if you're on a mobile device, check out the [latest release](https://github.com/trulyPranav/truthTrace-SHN/releases/latest) and download the latest .apk file, or if you're lazy like us, get the apk [here](https://github.com/trulyPranav/truthTrace-SHN/releases/latest](https://github.com/trulyPranav/truthTrace-SHN/releases/download/release1/truthTrace.apk)!
+- Or if you're on a mobile device, check out the [latest release](https://github.com/trulyPranav/truthTrace-SHN/releases/latest) and download the latest .apk file, or if you're lazy like us, get the apk [here](https://github.com/trulyPranav/truthTrace-SHN/releases/download/release1/truthTrace.apk)!
