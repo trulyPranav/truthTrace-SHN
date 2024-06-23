@@ -21,7 +21,7 @@ The project works in the following way:
 - The google search feature embedded in the langchain framework is utilized, to find out the urls of the top 10 links of the search query related to the user's prompt.
 - The texts of the body tags of the 10 links are entirely scraped, and are stored in a variable.
 - Then a prompt template is used (a query) to compare the user's input and the scraped data, and is **summarized**.
-- The summarized data and the 10 sourced links is then returned to the app/api calls as the result of the user's input.
+- The summarized data and the 10 sourced links are then returned to the app/api calls as the result of the user's input.
 - The accuracy of the fact the user mentioned is checked with the data fed by scraping, and a suitable accuracy percentage/percentage range is provided along with its summary and source links. 
 
 **2. Embed video of project demo:**
@@ -55,4 +55,4 @@ Will be uploaded by 24/6/24
 #### Running the app:
 Do either of the following:
 - Run the flutter frondend in the created virtual device. If the server connects, you'll be redirected to the chat screen, where you can type prompts and use the bot to check facts.
-- Or if you're on a mobile device, check out the [latest release](https://github.com/trulyPranav/truthTrace-SHN/releases/latest) and download the latest .apk file, or if you're lazy like us, get the apk [here!]([https://github.com/trulyPranav/truthTrace-SHN/releases/latest](https://github.com/trulyPranav/truthTrace-SHN/releases/download/release1/truthTrace.apk))
+- Or if you're on a mobile device, check out the [latest release](https://github.com/trulyPranav/truthTrace-SHN/releases/latest) and download the latest .apk file, or if you're lazy like us, get the apk [here!]([https://github.com/trulyPranav/truthTrace-SHN/releases/latest](https://github.com/trulyPranav/truthTrace-SHN/releases/download/release1/truthTrace.apk)
