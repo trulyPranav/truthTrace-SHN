@@ -12,11 +12,10 @@ A fact-checker application that compares and provides the result of how much acc
 1. [Pranav M](https://github.com/trulyPranav)
 2. [Abhiram A R](https://github.com/AbhiramAnanthu)
 ## Link to product walkthrough:
-Will be uploaded by 24/6/24
-[link to video](Link Here)
+[link to video](https://drive.google.com/file/d/1pi1yG34YJTMbplDZEwn9wz1_hoKM32dv/view?usp=drivesdk)
 ## How it Works ?
 **1. Explaining the working of project:**
-The project works in the following way:
+<br>The project works in the following way:
 - The user sends a prompt through the app or through the api.
 - The google search feature embedded in the langchain framework is utilized, to find out the urls of the top 10 links of the search query related to the user's prompt.
 - The texts of the body tags of the 10 links are entirely scraped, and are stored in a variable.
