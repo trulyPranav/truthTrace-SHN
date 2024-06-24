@@ -17,15 +17,15 @@ A fact-checker application that compares and provides the result of how much acc
 **1. Explaining the working of project:**
 <br>The project works in the following way:
 - The user sends a prompt through the app or through the api.
-- The google search feature embedded in the langchain framework is utilized, to find out the urls of the top 10 links of the search query related to the user's prompt.
-- The texts of the body tags of the 10 links are entirely scraped, and are stored in a variable.
+- The google search feature embedded in the langchain framework is utilized, to find out the urls of the top 5 links of the search query related to the user's prompt.
+- The texts of the body tags of the 5 links are entirely scraped, and are stored in a variable.
 - Then a prompt template is used (a query) to compare the user's input and the scraped data, and is **summarized**.
-- The summarized data and the 10 sourced links are then returned to the app/api calls as the result of the user's input.
+- The summarized data and the 5 sourced links are then returned to the app/api calls as the result of the user's input.
 - The accuracy of the fact the user mentioned is checked with the data fed by scraping, and a suitable accuracy percentage/percentage range is provided along with its summary and source links. 
 
 **2. Embed video of project demo:**
 
-Will be uploaded by 24/6/24
+[**Here is the video showing the working of the project!**](https://drive.google.com/file/d/18O2dbtmOtqUzWmO3zw7KwSr5AAotbWo6/view?usp=sharing)
 ## Libraries used
 - Langchain
 - BeautifulSoup4
