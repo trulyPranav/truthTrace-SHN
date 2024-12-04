@@ -8,11 +8,8 @@ import os
 import requests
 from flask import Flask, request, jsonify
 
-# Loading environment variables
-dotenv_path = ".env"
-load_dotenv(dotenv_path)
+load_dotenv(dotenv_path=".env")
 
-# Loading model
 llm = ChatGroq(
     temperature=0.6, model="llama3-70b-8192", api_key=os.getenv("GROQ_API_KEY")
 )
@@ -84,7 +81,6 @@ def scrap_body(url):
                 return "".join(words[:6000])
 
 
-# Initialize Flask application
 app = Flask(__name__)
 
 
